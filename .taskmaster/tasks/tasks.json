@@ -121,14 +121,14 @@
       {
         "id": 7,
         "title": "Implement SEO and Accessibility Best Practices",
-        "description": "Add a sitemap, robots.txt, RSS feed, and basic accessibility features.",
-        "details": "1. Create `src/public/robots.txt`.\n2. Create a sitemap template `src/sitemap.xml.njk` that iterates through `collections.all`.\n3. Create an RSS feed template `src/feed.xml.njk` using the helpers provided by `@11ty/eleventy-plugin-rss`.\n4. Add the RSS feed link to the `<head>` of `src/_includes/layouts/base.njk`.\n5. Add a \"Skip to main content\" link in `base.njk` for accessibility.",
-        "testStrategy": "1. Run `npm run build`.\n2. Verify `_site/sitemap.xml`, `_site/feed.xml`, and `_site/robots.txt` are generated correctly.\n3. Validate the `feed.xml` using an online validator (e.g., W3C Feed Validation Service).\n4. Use browser developer tools to run a Lighthouse audit and check for an accessibility score.",
+        "description": "Add a sitemap, robots.txt, RSS feed, and basic accessibility features to improve site discoverability and user experience.",
+        "details": "1. **Update `.eleventy.js`:** Add a new 'sitemap' collection that filters out utility pages, ensuring only content pages are included in the sitemap.\n   ```javascript\n   // In .eleventy.js\n   eleventyConfig.addCollection(\"sitemap\", function(collectionApi) {\n     return collectionApi.getFilteredByGlob(\"src/**/*.{njk,md}\")\n       .filter(item => !item.data.eleventyExcludeFromCollections);\n   });\n   ```\n2. **Create `src/public/robots.txt`:** This file directs search engines and points them to the sitemap.\n   ```txt\n   User-agent: *\n   Allow: /\n\n   Sitemap: https://your-final-domain.com/sitemap.xml\n   ```\n   *(Note: Remember to replace the placeholder domain with your actual site URL later.)*\n3. **Create the Sitemap (`src/sitemap.xml.njk`):** This template uses the new 'sitemap' collection.\n   ```nunjucks\n   ---\n   permalink: /sitemap.xml\n   eleventyExcludeFromCollections: true\n   ---\n   <?xml version=\"1.0\" encoding=\"utf-8\"?>\n   <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n     {%- for page in collections.sitemap %}\n     <url>\n       <loc>{{ site.url }}{{ page.url | url }}</loc>\n       <lastmod>{{ page.date.toISOString() }}</lastmod>\n     </url>\n     {%- endfor %}\n   </urlset>\n   ```\n4. **Create the RSS Feed (`src/feed.xml.njk`):** Uses the Eleventy RSS plugin for a valid Atom feed.\n   ```nunjucks\n   ---\n   permalink: /feed.xml\n   eleventyExcludeFromCollections: true\n   ---\n   <?xml version=\"1.0\" encoding=\"utf-8\"?>\n   <feed xmlns=\"http://www.w3.org/2005/Atom\">\n       <title>{{ site.title }}</title>\n       <subtitle>{{ site.description }}</subtitle>\n       <link href=\"{{ site.url }}{{ permalink }}\" rel=\"self\"/>\n       <link href=\"{{ site.url }}/\"/>\n       <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>\n       <id>{{ site.url }}/</id>\n       <author>\n           <name>{{ site.authorName }}</name>\n           <email>{{ site.authorEmail }}</email>\n       </author>\n       {%- for post in collections.posts %}\n       {%- set absolutePostUrl %}{{ site.url }}{{ post.url | url }}{% endset %}\n       <entry>\n           <title>{{ post.data.title }}</title>\n           <link href=\"{{ absolutePostUrl }}\"/>\n           <updated>{{ post.date | dateToRfc3339 }}</updated>\n           <id>{{ absolutePostUrl }}</id>\n           <content type=\"html\">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>\n       </entry>\n       {%- endfor %}\n   </feed>\n   ```\n5. **Update `src/_includes/layouts/base.njk`:** Add the RSS feed link to the `<head>` for auto-discovery.\n   ```html\n   <link rel=\"alternate\" type=\"application/atom+xml\" title=\"RSS Feed for {{ site.title }}\" href=\"/feed.xml\">\n   ```",
+        "testStrategy": "1. Run `npm run build`.\n2. Verify that `_site/robots.txt`, `_site/sitemap.xml`, and `_site/feed.xml` are generated.\n3. Check the contents of `sitemap.xml` to ensure it includes your pages (Home, About, Blog Post) but excludes the sitemap and feed themselves.\n4. Validate the generated `feed.xml` using an online validator like the W3C Feed Validation Service.\n5. Run a Lighthouse audit in browser developer tools to check the accessibility score.",
         "priority": "medium",
         "dependencies": [
           6
         ],
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": 8,
@@ -145,7 +145,7 @@
     ],
     "metadata": {
       "created": "2023-10-27T12:00:00.000Z",
-      "updated": "2025-06-24T11:59:35.691Z",
+      "updated": "2025-06-24T12:10:57.579Z",
       "description": "A refined, professional task list for building the personal website."
     }
   }

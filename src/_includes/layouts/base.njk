@@ -6,6 +6,7 @@
     <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
     <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="alternate" type="application/atom+xml" title="RSS Feed for {{ site.title }}" href="/feed.xml">
 </head>
 <body class="bg-white text-gray-900 font-sans">
     <!-- Skip to main content link for accessibility -->

@@ -33,6 +33,12 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Create a collection for sitemap (excludes utility pages)
+  eleventyConfig.addCollection("sitemap", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/**/*.{njk,md}")
+      .filter(item => !item.data.eleventyExcludeFromCollections);
+  });
+
   return {
     dir: {
       input: "src",
