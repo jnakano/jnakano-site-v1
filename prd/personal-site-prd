@@ -1,0 +1,156 @@
+PRD: Personal Website & Blog
+Document Version: 1.0
+Date: October 27, 2023
+Author: J Nakano
+Status: Proposed
+
+1. Introduction & Vision
+This document outlines the requirements for building a modern, performant, and easily maintainable personal website. The primary purpose of this site is to establish a professional online presence, share a personal biography, and publish blog articles. The core philosophy is simplicity, performance, and a streamlined content creation workflow for the author, all while leveraging a free-to-host technology stack.
+
+2. Goals & Objectives
+Primary Goal: To launch a personal website with Home, About, and Blog sections.
+Key Objective 1: The process of creating and publishing a new blog post must be as simple as adding a single Markdown file to the project.
+Key Objective 2: The website must be extremely fast, accessible, and responsive on all common devices (mobile, tablet, desktop).
+Key Objective 3: The entire project must be deployable and hostable on Netlify's free tier.
+Success Metric: A new blog post can be written, committed to Git, and be live on the production URL within minutes, without any manual steps beyond git push.
+
+3. Target Audience
+Technical Peers & Community: Colleagues and other developers who may be interested in the technical content of the blog.
+Potential Employers & Collaborators: Individuals looking to understand my skills, experience, and communication style.
+General Readers: Individuals who discover the blog through search engines or social media, interested in the topics discussed.
+
+4. Core Features & Functional Requirements
+4.1. Global Elements
+Header:
+Must be present on all pages.
+Must contain the site title (linking to the Home page).
+Must contain a primary navigation menu.
+Navigation:
+Must contain links to: Home, About, Blog.
+Links should clearly indicate the active page.
+Footer:
+Must be present on all pages.
+Must contain a copyright notice with the current year and site title.
+4.2. Pages & Templates
+Home Page (/)
+Purpose: A landing page to welcome visitors.
+Content: A main headline, a brief introductory paragraph.
+About Page (/about/)
+Purpose: To provide a professional biography.
+Content: A headline, paragraphs containing the bio text.
+Blog Listing Page (/blog/)
+Purpose: To display a reverse-chronological list of all published blog posts.
+Functionality:
+It must query Eleventy's posts collection.
+Posts must be sorted with the newest first.
+Each item in the list must display the post's title and its publication date.
+The title must be a link to the individual post page.
+Individual Blog Post Page (/blog/my-post-slug/)
+Purpose: To display the full content of a single blog post.
+Content:
+Post Title.
+Publication Date.
+Full post content rendered from Markdown.
+Functionality:
+Must support standard Markdown syntax (headings, lists, links, etc.).
+Code blocks must be syntax-highlighted.
+4.3. Blog Post Workflow
+Creation: A new post is created by adding a new Markdown (.md) file to the src/posts/ directory.
+Front Matter: Each post must contain the following front matter:
+title: (String) The title of the post.
+date: (Date) The publication date (e.g., YYYY-MM-DD).
+layout: (String) Path to the post layout file (e.g., "layouts/post.njk").
+tags: (Array of strings) Categories for the post (e.g., ["tech", "eleventy"]).
+permalink: (String, optional but recommended) To define a clean URL structure (e.g., "/blog/my-post-slug/").
+
+5. Technical Specifications
+5.1. Technology Stack
+Static Site Generator: Eleventy (11ty)
+Styling: Tailwind CSS (via PostCSS)
+Templating Language: Nunjucks (.njk)
+Content Format: Markdown (.md)
+JavaScript: Vanilla JavaScript (for potential minor client-side interactions)
+5.2. Project Structure
+The project will adhere to the following directory structure:
+Generated code
+my-blog/
+├── src/
+│   ├── _includes/
+│   │   ├── layouts/          # base.njk, post.njk
+│   │   └── partials/         # header.njk, footer.njk
+│   ├── _data/
+│   │   └── site.json         # Global site data (title, url)
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── styles.css    # Main source CSS with @tailwind directives
+│   │   └── js/
+│   │   │   └── main.js
+│   ├── posts/
+│   │   └── post1.md
+│   ├── public/               # Static assets (images, favicon)
+│   │   └── images/
+│   ├── index.njk             # Home page
+│   ├── about.njk             # About page
+│   └── blog.njk              # Blog listing page
+├── .eleventy.js              # Eleventy configuration
+├── package.json              # Node dependencies and scripts
+├── postcss.config.js         # PostCSS configuration
+├── tailwind.config.js        # Tailwind CSS configuration
+├── netlify.toml              # Netlify deployment configuration
+└── .gitignore                # Files to ignore in Git
+Use code with caution.
+5.3. Build Process & Scripts (package.json)
+The following npm scripts shall be configured:
+Generated json
+"scripts": {
+  "build:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/css/styles.css --minify",
+  "build:eleventy": "eleventy",
+  "build": "npm run-all build:*",
+  "start:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/css/styles.css --watch",
+  "start:eleventy": "eleventy --serve",
+  "start": "npm-run-all --parallel start:*"
+}
+Use code with caution.
+Json
+npm start: For local development. Runs a local server with live-reload for both content and style changes.
+npm run build: For production builds. Generates the complete, optimized site in the _site directory.
+5.4. Deployment & Infrastructure
+Hosting Provider: Netlify (Free Tier)
+Deployment Method: Continuous Deployment via a Git repository (GitHub, GitLab, etc.). Pushing to the main branch will trigger a production build.
+Build Configuration: Defined in netlify.toml:
+Generated toml
+# netlify.toml
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+[context.production.environment]
+  NODE_ENV = "production"
+Use code with caution.
+Toml
+
+6. Design & UX Requirements
+Layout: The design must be responsive and mobile-first. Content should be legible and accessible on screen sizes from 320px width upwards.
+Styling: A minimalist and clean aesthetic using Tailwind CSS utility classes. The color palette should be simple, primarily using shades of gray with a single accent color for links and highlights.
+Typography: Default to system fonts for performance and a native feel. Font sizes and line heights should ensure high readability.
+
+7. Out of Scope (Version 1.0)
+Comments Section: No third-party or native comment system will be implemented.
+CMS Integration: Content will be managed directly in Markdown files within the Git repository.
+Search Functionality: No site-wide search will be included.
+Dark Mode: A single (light) theme will be implemented.
+Analytics: No analytics scripts will be included in the initial build.
+
+8. Acceptance Criteria
+A checklist to confirm project completion:
+The project structure is created as defined in section 5.2.
+All dependencies in package.json are installed.
+npm start successfully launches a local development server on localhost:8080.
+All three pages (Home, About, Blog) are accessible and render correctly on the local server.
+Navigation between pages works correctly.
+Creating a new .md file in src/posts/ and restarting the server results in the new post appearing on the /blog/ page.
+npm run build command completes without errors and populates the _site directory.
+The layout is responsive when tested on mobile and desktop viewports.
+Code blocks within a blog post are correctly syntax-highlighted.
+The project is successfully linked to a Netlify account and deploys automatically on git push.
+The live Netlify site matches the result of the local production build.
