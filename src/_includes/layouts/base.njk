@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded">
+        Skip to main content
+    </a>
+    
+    {% include "partials/header.njk" %}
+    
+    <main id="main" class="min-h-screen">
+        {{ content | safe }}
+    </main>
+    
+    {% include "partials/footer.njk" %}
+    
+    <script src="/assets/js/main.js"></script>
+</body>
+</html> 
