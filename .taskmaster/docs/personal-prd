@@ -31,6 +31,7 @@ Links should clearly indicate the active page.
 Footer:
 Must be present on all pages.
 Must contain a copyright notice with the current year and site title.
+
 4.2. Pages & Templates
 Home Page (/)
 Purpose: A landing page to welcome visitors.
@@ -54,6 +55,7 @@ Full post content rendered from Markdown.
 Functionality:
 Must support standard Markdown syntax (headings, lists, links, etc.).
 Code blocks must be syntax-highlighted.
+
 4.3. Blog Post Workflow
 Creation: A new post is created by adding a new Markdown (.md) file to the src/posts/ directory.
 Front Matter: Each post must contain the following front matter:
