@@ -15,13 +15,13 @@
         "id": 2,
         "title": "Configure Eleventy, Tailwind, and Site Data",
         "description": "Set up the core logic in `.eleventy.js`, configure Tailwind's content paths, and establish global site data.",
-        "details": "1. Populate `src/_data/site.json`:\n   ```json\n   { \"title\": \"My Personal Website\", \"url\": \"https://example.com\", \"authorName\": \"Your Name\", \"authorEmail\": \"you@example.com\" }\n   ```\n2. Update `tailwind.config.js` to watch template files and add the typography plugin:\n   ```javascript\n   module.exports = {\n     content: [\"./src/**/*.{njk,md,html}\"],\n     theme: { extend: {} },\n     plugins: [require('@tailwindcss/typography')],\n   };\n   ```\n3. Populate `.eleventy.js` with plugins (RSS, SyntaxHighlight), passthrough copy for `/src/public/`, the `posts` collection (sorted by date descending), and utility filters (`readableDate`, `htmlDateString`). Add a `year` shortcode for the footer.\n   ```javascript\n   // In .eleventy.js\n   // ... require statements ...\n   eleventyConfig.addPlugin(pluginRss);\n   eleventyConfig.addPlugin(syntaxHighlight);\n   eleventyConfig.addPassthroughCopy('./src/public/');\n   eleventyConfig.addCollection('posts', ...);\n   eleventyConfig.addFilter('readableDate', ...);\n   eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);\n   ```",
+        "details": "1. Populate `src/_data/site.json`:\n   ```json\n   { \"title\": \"My Personal Website\", \"url\": \"https://example.com\", \"authorName\": \"Your Name\", \"authorEmail\": \"you@example.com\" }\n   ```\n2. Update `tailwind.config.js` to watch template files and add the typography plugin:\n   ```javascript\n   module.exports = {\n     content: [\"./src/**/*.{njk,md,html}\"],\n     theme: { extend: {} },\n     plugins: [require('@tailwindcss/typography')],\n   };\n   ```\n3. Populate `.eleventy.js` with plugins (RSS, SyntaxHighlight), passthrough copy for `/src/public/`, the `posts` collection (sorted by date descending), and utility filters (`readableDate`, `htmlDateString`). Add a `year` shortcode for the footer.\n   ```javascript\n   // In .eleventy.js\n   // ... require statements ...\n   eleventyConfig.addPlugin(pluginRss);\n   eleventyConfig.addPlugin(syntaxHighlight);\n   eleventyConfig.addPassthroughCopy('./src/public/');\n   eleventyConfig.addCollection('posts', ...);\n   eleventyConfig.addFilter('readableDate', ...);\n   eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);\n   ```\n<info added on 2025-06-24T11:17:55.719Z>\n✅ **Task 2 Configuration Complete!**\n\n**What was accomplished:**\n1. ✅ **Site Data Configuration**: Updated `src/_data/site.json` with complete site information including:\n   - Site title: \"J Nakano\"\n   - Description: \"Personal website and blog\"  \n   - URL: \"https://jnakano.netlify.app\"\n   - Author: \"J Nakano\"\n   - Author Email: \"j@jnakano.com\"\n\n2. ✅ **Tailwind Configuration**: `tailwind.config.js` is properly configured with:\n   - Content paths watching all template files: `\"./src/**/*.{html,js,njk,md}\"`\n   - @tailwindcss/typography plugin enabled\n   - Extended theme configuration\n\n3. ✅ **Eleventy Configuration**: `.eleventy.js` is fully configured with:\n   - RSS plugin (`@11ty/eleventy-plugin-rss`) \n   - Syntax highlight plugin (`@11ty/eleventy-plugin-syntaxhighlight`)\n   - Passthrough copy for `src/public` and `src/assets/js`\n   - Posts collection (sorted by date descending)\n   - Date filters: `readableDate` and `htmlDateString` using Luxon\n   - Year shortcode for footer: `{% year %}`\n   - Proper directory structure and template engine configuration\n\n4. ✅ **Dependency Update**: Upgraded Eleventy from v2.0.1 to latest v3.x to resolve RSS plugin compatibility\n\n5. ✅ **Build Verification**: Confirmed the build system works correctly:\n   - `npm start` runs without errors\n   - Tailwind CSS compilation working\n   - Eleventy site generation working  \n   - Static assets properly copied to `_site/`\n\n**Ready to proceed to Task 3: Implement Base Layout, Partials, and Global CSS**\n</info added on 2025-06-24T11:17:55.719Z>",
         "testStrategy": "1. Run `npm start`. The process should still run without errors.\n2. Verify that any files placed in `src/public` are copied to `_site/` after a build.",
         "priority": "high",
         "dependencies": [
           1
         ],
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": 3,
@@ -98,7 +98,7 @@
     ],
     "metadata": {
       "created": "2023-10-27T12:00:00.000Z",
-      "updated": "2025-06-24T11:05:08.675Z",
+      "updated": "2025-06-24T11:18:05.161Z",
       "description": "A refined, professional task list for building the personal website."
     }
   }
