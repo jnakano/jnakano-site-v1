@@ -1,0 +1,105 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Foundation",
+        "description": "Initialize the project structure, install all dependencies, and configure build scripts and core configuration files within the existing Git repository.",
+        "details": "1. Create `package.json` to manage dependencies: `npm init -y`\n2. Install all dev dependencies:\n   ```bash\n   npm install -D eleventy @11ty/eleventy-plugin-rss @11ty/eleventy-plugin-syntaxhighlight luxon tailwindcss postcss autoprefixer npm-run-all @tailwindcss/typography\n   ```\n3. Create the full project directory structure as defined in section 5.2 of the PRD.\n4. Initialize Tailwind (`npx tailwindcss init -p`), which creates `tailwind.config.js` and `postcss.config.js`.\n5. Create initial placeholder files: `.eleventy.js` and `netlify.toml`.\n6. Update `package.json` with the scripts from section 5.3 of the PRD.\n7. Create a `.gitignore` file for `node_modules/` and `_site/`.\n<info added on 2025-06-24T11:05:03.563Z>\n✅ **Project Foundation Setup Complete!**\n\n**What was accomplished:**\n1. ✅ Created `package.json` with npm init -y\n2. ✅ Installed all required dependencies:\n   - @11ty/eleventy (v3.1.1)\n   - @11ty/eleventy-plugin-rss (v2.0.4) \n   - @11ty/eleventy-plugin-syntaxhighlight (v5.0.1)\n   - @tailwindcss/typography (v0.5.16)\n   - autoprefixer (v10.4.21)\n   - luxon (v3.6.1)\n   - npm-run-all (v4.1.5)\n   - postcss (v8.5.6)\n   - tailwindcss (v4.1.10)\n\n3. ✅ Created complete directory structure:\n   - src/_includes/layouts/\n   - src/_includes/partials/\n   - src/_data/\n   - src/assets/css/\n   - src/assets/js/\n   - src/posts/\n   - src/public/images/\n\n4. ✅ Created configuration files:\n   - tailwind.config.js (with content paths and typography plugin)\n   - postcss.config.js (with Tailwind and Autoprefixer)\n   - .eleventy.js (with plugins, filters, and collections)\n   - netlify.toml (deployment configuration)\n\n5. ✅ Updated package.json with build scripts:\n   - build:css (Tailwind compilation)\n   - build:eleventy (Eleventy build)\n   - build (runs all build tasks)\n   - start:css (Tailwind watch mode)\n   - start:eleventy (Eleventy dev server)\n   - start (runs all start tasks in parallel)\n\n6. ✅ Created .gitignore file (excludes node_modules, _site, etc.)\n\n7. ✅ Created initial files:\n   - src/assets/css/styles.css (with Tailwind directives)\n   - src/_data/site.json (global site data)\n   - src/assets/js/main.js (placeholder JavaScript)\n\n8. ✅ Verified installation: npm install completed successfully with 0 vulnerabilities\n\n**Project is now ready for the next phase: implementing the base layout and global styles!**\n</info added on 2025-06-24T11:05:03.563Z>",
+        "testStrategy": "1. Verify all directories and files are created.\n2. Run `npm install` to ensure all dependencies install without error.\n3. Run `npm start`. Expect it to run without crashing, though no pages will be visible yet. This confirms the scripts and basic configs are syntactically correct.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done"
+      },
+      {
+        "id": 2,
+        "title": "Configure Eleventy, Tailwind, and Site Data",
+        "description": "Set up the core logic in `.eleventy.js`, configure Tailwind's content paths, and establish global site data.",
+        "details": "1. Populate `src/_data/site.json`:\n   ```json\n   { \"title\": \"My Personal Website\", \"url\": \"https://example.com\", \"authorName\": \"Your Name\", \"authorEmail\": \"you@example.com\" }\n   ```\n2. Update `tailwind.config.js` to watch template files and add the typography plugin:\n   ```javascript\n   module.exports = {\n     content: [\"./src/**/*.{njk,md,html}\"],\n     theme: { extend: {} },\n     plugins: [require('@tailwindcss/typography')],\n   };\n   ```\n3. Populate `.eleventy.js` with plugins (RSS, SyntaxHighlight), passthrough copy for `/src/public/`, the `posts` collection (sorted by date descending), and utility filters (`readableDate`, `htmlDateString`). Add a `year` shortcode for the footer.\n   ```javascript\n   // In .eleventy.js\n   // ... require statements ...\n   eleventyConfig.addPlugin(pluginRss);\n   eleventyConfig.addPlugin(syntaxHighlight);\n   eleventyConfig.addPassthroughCopy('./src/public/');\n   eleventyConfig.addCollection('posts', ...);\n   eleventyConfig.addFilter('readableDate', ...);\n   eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);\n   ```",
+        "testStrategy": "1. Run `npm start`. The process should still run without errors.\n2. Verify that any files placed in `src/public` are copied to `_site/` after a build.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 3,
+        "title": "Implement Base Layout, Partials, and Global CSS",
+        "description": "Create the main `base.njk` layout, header/footer partials, and the main CSS file with Tailwind directives.",
+        "details": "1. Create `src/assets/css/styles.css` with `@tailwind` directives.\n2. Create `src/_includes/layouts/base.njk` with the core HTML structure, linking to `styles.css` and including header/footer partials.\n3. Create `src/_includes/partials/header.njk` with site title and navigation (`Home`, `About`, `Blog`). Use `page.url` to highlight the active link.\n4. Create `src/_includes/partials/footer.njk` with a copyright notice using the `{% year %}` shortcode.",
+        "testStrategy": "1. This task provides the visual foundation. To test, you must also complete Task 4 (Home Page).\n2. After completing Task 4, run `npm start` and verify the basic page layout, header, and footer appear correctly on the home page.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 4,
+        "title": "Implement Static Pages: Home and About",
+        "description": "Create the content for the Home and About pages.",
+        "details": "1. Create `src/index.njk` (Home page) with a welcome message.\n   ```njk\n   ---\n   layout: layouts/base.njk\n   title: Home\n   ---\n   <h1 class=\"text-4xl font-bold\">Welcome</h1>\n   <p>...</p>\n   ```\n2. Create `src/about.njk` (About page) with bio content. Use the `prose` class from Tailwind Typography for styling.\n   ```njk\n   ---\n   layout: layouts/base.njk\n   title: About Me\n   permalink: /about/index.html\n   ---\n   <article class=\"prose lg:prose-xl\">\n     <h1>About Me</h1>\n     <p>...</p>\n   </article>\n   ```",
+        "testStrategy": "1. Run `npm start`. \n2. Navigate to `/` and `/about/`. Verify both pages render correctly with their content and the base layout.\n3. Check that the `prose` styles are applied correctly on the About page.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 5,
+        "title": "Implement Blog Pages: Listing and Post Template",
+        "description": "Create the blog listing page and the template for individual posts.",
+        "details": "1. Create `src/blog.njk` to list all posts from `collections.posts`.\n   ```njk\n   // Note: No '| reverse' filter needed as the collection is pre-sorted in .eleventy.js\n   {% for post in collections.posts %}\n     <h2><a href=\"{{ post.url }}\">{{ post.data.title }}</a></h2>\n     <p>{{ post.date | readableDate }}</p>\n   {% endfor %}\n   ```\n2. Create the post layout `src/_includes/layouts/post.njk`.\n   ```njk\n   ---\n   layout: layouts/base.njk\n   ---\n   <article class=\"prose lg:prose-xl mx-auto\">\n     <h1>{{ title }}</h1>\n     <p>{{ date | readableDate }}</p>\n     {{ content | safe }}\n   </article>\n   ```\n3. Add the CSS for the syntax highlighting plugin to `styles.css`. From the plugin's docs, this is typically a single line.\n   ```css\n   /* In styles.css */\n   @import 'prism-themes/themes/prism-one-dark.css'; /* Or your theme of choice */\n   ```",
+        "testStrategy": "1. Create a sample markdown post in `src/posts/` to test with.\n2. Run `npm start` and navigate to `/blog/`. Verify the sample post is listed.\n3. Click the link to the sample post. Verify it renders correctly using the `post.njk` layout and that any code blocks are syntax highlighted.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 6,
+        "title": "Finalize Blog Workflow and Documentation",
+        "description": "Create a sample blog post demonstrating all features and document the creation process in the main README.",
+        "details": "1. Create a detailed sample post in `src/posts/my-first-post.md` using all required front matter (`title`, `date`, `layout`, `tags`, `permalink`). Include sample Markdown and a code block.\n2. Update the root `README.md` with clear, concise instructions for future-you on how to create a new blog post, referencing the file structure and front matter requirements.",
+        "testStrategy": "1. Follow the new instructions in `README.md` to create a *second* blog post.\n2. Run `npm start` and verify this second post appears correctly on the blog index and on its own page.\n3. This confirms the workflow is simple and the documentation is accurate.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 7,
+        "title": "Implement SEO and Accessibility Best Practices",
+        "description": "Add a sitemap, robots.txt, RSS feed, and basic accessibility features.",
+        "details": "1. Create `src/public/robots.txt`.\n2. Create a sitemap template `src/sitemap.xml.njk` that iterates through `collections.all`.\n3. Create an RSS feed template `src/feed.xml.njk` using the helpers provided by `@11ty/eleventy-plugin-rss`.\n4. Add the RSS feed link to the `<head>` of `src/_includes/layouts/base.njk`.\n5. Add a \"Skip to main content\" link in `base.njk` for accessibility.",
+        "testStrategy": "1. Run `npm run build`.\n2. Verify `_site/sitemap.xml`, `_site/feed.xml`, and `_site/robots.txt` are generated correctly.\n3. Validate the `feed.xml` using an online validator (e.g., W3C Feed Validation Service).\n4. Use browser developer tools to run a Lighthouse audit and check for an accessibility score.",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "pending"
+      },
+      {
+        "id": 8,
+        "title": "Setup Continuous Deployment with Netlify",
+        "description": "Configure the project for automated deployment on Netlify.",
+        "details": "1. Ensure the `netlify.toml` file is configured correctly with the build command (`npm run build`) and publish directory (`_site`).\n2. Create a new repository on your Git provider (GitHub, GitLab, etc.).\n3. Push your local project to the remote repository.\n4. In Netlify, create a 'New site from Git' and link it to your new repository.\n5. Verify Netlify uses the settings from `netlify.toml` automatically.",
+        "testStrategy": "1. After connecting to Netlify, monitor the first deploy log for errors.\n2. Access the live Netlify URL and verify the site is identical to the local build.\n3. Make a small text change, commit, and push. Verify the site automatically redeploys with the change within a few minutes.",
+        "priority": "high",
+        "dependencies": [
+          7
+        ],
+        "status": "pending"
+      }
+    ],
+    "metadata": {
+      "created": "2023-10-27T12:00:00.000Z",
+      "updated": "2025-06-24T11:05:08.675Z",
+      "description": "A refined, professional task list for building the personal website."
+    }
+  }
+}
