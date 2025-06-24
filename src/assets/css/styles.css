@@ -1,3 +1,92 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+/* Syntax Highlighting Styles */
+/* Using a dark theme for code blocks that works well with the overall design */
+pre[class*="language-"] {
+  @apply rounded-lg my-6 overflow-x-auto;
+  background: #2d3748 !important;
+  color: #e2e8f0 !important;
+  padding: 1.5rem !important;
+}
+
+code[class*="language-"] {
+  color: #e2e8f0 !important;
+  font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm;
+  font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Token styling for syntax highlighting */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #a0aec0 !important;
+}
+
+.token.punctuation {
+  color: #e2e8f0 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f56565 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #68d391 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #e2e8f0 !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #9f7aea !important;
+}
+
+.token.function,
+.token.class-name {
+  color: #fbd38d !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #f6ad55 !important;
+}
+
+/* Additional prose customizations for better code block integration */
+.prose pre {
+  @apply bg-gray-800;
+}
+
+.prose code {
+  @apply text-gray-800;
+}
+
+.prose pre code {
+  @apply text-gray-100;
+} 

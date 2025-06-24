@@ -51,13 +51,60 @@
         "id": 5,
         "title": "Implement Blog Pages: Listing and Post Template",
         "description": "Create the blog listing page and the template for individual posts.",
-        "details": "1. Create `src/blog.njk` to list all posts from `collections.posts`.\n   ```njk\n   // Note: No '| reverse' filter needed as the collection is pre-sorted in .eleventy.js\n   {% for post in collections.posts %}\n     <h2><a href=\"{{ post.url }}\">{{ post.data.title }}</a></h2>\n     <p>{{ post.date | readableDate }}</p>\n   {% endfor %}\n   ```\n2. Create the post layout `src/_includes/layouts/post.njk`.\n   ```njk\n   ---\n   layout: layouts/base.njk\n   ---\n   <article class=\"prose lg:prose-xl mx-auto\">\n     <h1>{{ title }}</h1>\n     <p>{{ date | readableDate }}</p>\n     {{ content | safe }}\n   </article>\n   ```\n3. Add the CSS for the syntax highlighting plugin to `styles.css`. From the plugin's docs, this is typically a single line.\n   ```css\n   /* In styles.css */\n   @import 'prism-themes/themes/prism-one-dark.css'; /* Or your theme of choice */\n   ```",
-        "testStrategy": "1. Create a sample markdown post in `src/posts/` to test with.\n2. Run `npm start` and navigate to `/blog/`. Verify the sample post is listed.\n3. Click the link to the sample post. Verify it renders correctly using the `post.njk` layout and that any code blocks are syntax highlighted.",
-        "priority": "high",
+        "status": "done",
         "dependencies": [
           4
         ],
-        "status": "pending"
+        "priority": "high",
+        "details": "1. Create `src/blog.njk` to list all posts from `collections.posts` with a responsive layout that includes:\n   - Post title, date, tags, and excerpt\n   - \"Read more\" links with icons\n   - Empty state handling with friendly message\n   - Proper SEO with meta description and permalink\n\n2. Create the post layout `src/_includes/layouts/post.njk` with:\n   - Extension of base layout with proper article structure\n   - Header with title, date, and tags\n   - Tailwind Typography for optimal content reading\n   - Date formatting with calendar icon\n   - Tag display with blue badges (excluding \"post\" tag)\n   - \"Back to Blog\" navigation link\n   - Friendly footer message\n\n3. Add syntax highlighting and CSS enhancements:\n   - Custom syntax highlighting theme with dark code blocks\n   - Support for multiple languages (JavaScript, CSS, etc.)\n   - Proper token coloring for readability\n   - Inline code styling with gray background\n   - Monospace font stack for code elements\n   - Integration with Tailwind Typography",
+        "testStrategy": "1. Create a sample markdown post in `src/posts/` with comprehensive content including:\n   - Proper front matter (title, date, tags, excerpt)\n   - Various Markdown features\n   - Code blocks in multiple languages\n\n2. Run `npm start` and navigate to `/blog/`. Verify:\n   - Blog listing page loads correctly\n   - Sample post is listed with all expected elements\n   - Empty state handling works if no posts exist\n\n3. Click the link to the sample post. Verify:\n   - Post renders correctly using the `post.njk` layout\n   - Title, date, and tags display properly\n   - Code blocks have proper syntax highlighting\n   - Navigation back to blog works\n   - Responsive design functions on different screen sizes",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Blog Listing Page Implementation",
+            "description": "Created src/blog.njk with clean, professional design and responsive layout that displays all posts from collections.posts, showing post title, date, tags, and excerpt with 'Read more' links and icons. Includes empty state handling and proper SEO.",
+            "status": "completed",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Post Template Layout Creation",
+            "description": "Created src/_includes/layouts/post.njk that extends base layout with proper article structure, beautiful header with title, date, and tags, Tailwind Typography for optimal reading, tag display with blue badges, and 'Back to Blog' navigation.",
+            "status": "completed",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Syntax Highlighting & CSS Enhancement",
+            "description": "Implemented custom syntax highlighting theme with dark code blocks supporting multiple languages, proper token coloring, inline code styling with gray background, monospace font stack, and integration with Tailwind Typography.",
+            "status": "completed",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Sample Blog Post Creation",
+            "description": "Created comprehensive test post with proper front matter demonstrating all Markdown features, code blocks in multiple languages, syntax highlighting functionality, tags, excerpt, and permalink with proper date formatting.",
+            "status": "completed",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Testing Verification",
+            "description": "Verified blog listing page loads at /blog/, individual post page loads correctly, post appears in blog listing, syntax highlighting works properly, navigation between blog and posts is functional, responsive design works, and typography and styling are applied correctly.",
+            "status": "completed",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
       },
       {
         "id": 6,
@@ -98,7 +145,7 @@
     ],
     "metadata": {
       "created": "2023-10-27T12:00:00.000Z",
-      "updated": "2025-06-24T11:39:24.371Z",
+      "updated": "2025-06-24T11:49:58.645Z",
       "description": "A refined, professional task list for building the personal website."
     }
   }
