@@ -2,24 +2,220 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Syntax Highlighting Styles */
-/* Using a dark theme for code blocks that works well with the overall design */
+/* Base layer customizations */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    min-height: 100vh;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #525252;
+  }
+}
+
+/* Component layer - Spotlight effects and interactive elements */
+@layer components {
+  /* Desktop spotlight effect for interactive elements */
+  @media (hover: hover) {
+    .spotlight-effect {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .spotlight-effect:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 
+                  0 0 40px rgba(59, 130, 246, 0.1),
+                  0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .spotlight-effect-subtle {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .spotlight-effect-subtle:hover {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.2),
+                  0 0 30px rgba(59, 130, 246, 0.05);
+      transform: translateY(-1px);
+    }
+    
+    /* Link spotlight effects */
+    .link-spotlight {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .link-spotlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .link-spotlight:hover::after {
+      width: 100%;
+    }
+    
+    .link-spotlight:hover {
+      color: #60a5fa;
+      text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+    }
+  }
+  
+  /* Mobile fade-in animations */
+  @media (hover: none) {
+    .mobile-fade-element {
+      opacity: 0.6;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-fade-element.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .mobile-fade-element.fade-out {
+      opacity: 0.4;
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Card components */
+  .card-dark {
+    @apply bg-gray-900 border border-gray-800 rounded-xl p-6 backdrop-blur-sm;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(15, 15, 15, 0.9) 100%);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-dark:hover {
+    border-color: #374151;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Hero section styling */
+  .hero-text {
+    background: linear-gradient(135deg, #f3f4f6 0%, #d1d5db 50%, #9ca3af 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    color: #9ca3af;
+  }
+  
+  /* Button components */
+  .btn-primary {
+    @apply bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 spotlight-effect;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  }
+  
+  .btn-secondary {
+    @apply border border-gray-700 text-gray-300 px-6 py-3 rounded-xl font-medium transition-all duration-300 spotlight-effect-subtle;
+    background: rgba(26, 26, 26, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  .btn-secondary:hover {
+    @apply border-gray-600 text-gray-200;
+    background: rgba(38, 38, 38, 0.8);
+  }
+  
+  /* Navigation styles */
+  .nav-link {
+    @apply relative transition-all duration-300;
+    color: #d1d5db;
+  }
+  
+  .nav-link.active {
+    color: #60a5fa;
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 1px;
+  }
+  
+  .nav-link:hover {
+    color: #f3f4f6;
+  }
+}
+
+/* Utilities layer */
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .backdrop-blur-strong {
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Syntax Highlighting - Dark theme */
 pre[class*="language-"] {
-  @apply rounded-lg my-6 overflow-x-auto;
-  background: #2d3748 !important;
+  @apply rounded-xl my-6 overflow-x-auto;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%) !important;
   color: #e2e8f0 !important;
-  padding: 1.5rem !important;
+  padding: 2rem !important;
+  border: 1px solid #374151;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 code[class*="language-"] {
   color: #e2e8f0 !important;
-  font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace !important;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 /* Inline code styling */
 :not(pre) > code {
-  @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm;
-  font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  @apply bg-gray-800 text-blue-400 px-2 py-1 rounded-md text-sm border border-gray-700;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
 }
 
 /* Token styling for syntax highlighting */
@@ -27,11 +223,11 @@ code[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #a0aec0 !important;
+  color: #6b7280 !important;
 }
 
 .token.punctuation {
-  color: #e2e8f0 !important;
+  color: #9ca3af !important;
 }
 
 .token.property,
@@ -41,7 +237,7 @@ code[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #f56565 !important;
+  color: #f87171 !important;
 }
 
 .token.selector,
@@ -50,7 +246,7 @@ code[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #68d391 !important;
+  color: #34d399 !important;
 }
 
 .token.operator,
@@ -64,29 +260,112 @@ code[class*="language-"] {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #9f7aea !important;
+  color: #c084fc !important;
 }
 
 .token.function,
 .token.class-name {
-  color: #fbd38d !important;
+  color: #fbbf24 !important;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #f6ad55 !important;
+  color: #f472b6 !important;
 }
 
-/* Additional prose customizations for better code block integration */
+/* Prose customizations for dark theme */
+.prose {
+  @apply text-gray-300;
+  max-width: none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-gray-100;
+}
+
+.prose a {
+  @apply text-blue-400 no-underline link-spotlight;
+}
+
+.prose blockquote {
+  @apply border-l-blue-500 bg-gray-900 text-gray-300;
+  border-left-width: 4px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
 .prose pre {
-  @apply bg-gray-800;
+  @apply bg-gray-900;
 }
 
 .prose code {
-  @apply text-gray-800;
+  @apply text-blue-400;
 }
 
 .prose pre code {
   @apply text-gray-100;
-} 
+}
+
+.prose table {
+  @apply bg-gray-900 border border-gray-700;
+}
+
+.prose th {
+  @apply bg-gray-800 text-gray-200 border-b border-gray-600;
+}
+
+.prose td {
+  @apply border-b border-gray-700 text-gray-300;
+}
+
+/* Blog post cards */
+.post-card {
+  @apply card-dark spotlight-effect-subtle;
+}
+
+.post-card .post-title {
+  @apply text-xl font-semibold text-gray-100 mb-2 link-spotlight;
+}
+
+.post-card .post-excerpt {
+  @apply text-gray-400 text-sm leading-relaxed;
+}
+
+.post-card .post-meta {
+  @apply text-xs text-gray-500 flex items-center space-x-4 mt-4;
+}
+
+/* Intersection Observer animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

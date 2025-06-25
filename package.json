@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/css/styles.css --minify",
+    "build:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/assets/css/styles.css --minify",
     "build:eleventy": "eleventy",
     "build": "npm-run-all build:*",
-    "start:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/css/styles.css --watch",
+    "start:css": "tailwindcss -i ./src/assets/css/styles.css -o ./_site/assets/css/styles.css --watch",
     "start:eleventy": "eleventy --serve",
     "start": "npm-run-all --parallel start:*"
   },

@@ -3,56 +3,239 @@ layout: layouts/base.njk
 title: Home
 ---
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Hero Section -->
-    <div class="text-center mb-16">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Welcome to My Website
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Personal Introduction -->
+    <div class="pt-16 pb-12 text-center">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-100 mb-6">
+            Hey, I'm J Nakano
         </h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Hi, I'm J Nakano. This is my personal space on the web where I share my thoughts, 
-            projects, and experiences in development and beyond.
-        </p>
-        <div class="flex justify-center space-x-4">
-            <a href="/about/" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                Learn More About Me
-            </a>
-            <a href="/blog/" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
-                Read My Blog
-            </a>
+        <div class="text-xl sm:text-2xl text-gray-300 h-12 flex items-center justify-center">
+            <span id="typing-text" class="border-r-2 border-blue-400 pr-1"></span>
         </div>
     </div>
 
-    <!-- Quick Intro Section -->
-    <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">What I Do</h2>
-            <p class="text-gray-600 mb-4">
-                I'm passionate about building great software and sharing knowledge with the development community. 
-                Whether it's crafting elegant code, exploring new technologies, or solving complex problems, 
-                I love the journey of continuous learning.
-            </p>
-            <p class="text-gray-600">
-                This website serves as both a portfolio of my work and a platform for sharing insights 
-                I've gathered along the way.
-            </p>
+    <!-- Blog Section -->
+    <section class="py-16 border-t border-gray-800/50">
+        <div class="flex items-center justify-between mb-12">
+            <h2 class="text-3xl font-bold text-gray-100">Latest Blog Posts</h2>
+            <a href="/blog/" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+                View all posts →
+            </a>
         </div>
-        <div class="bg-gray-100 rounded-lg p-8 text-center">
-            <div class="text-4xl mb-4">👋</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Let's Connect</h3>
-            <p class="text-gray-600">
-                Feel free to explore my projects, read my thoughts on development, 
-                or reach out if you'd like to collaborate.
-            </p>
-        </div>
-    </div>
 
-    <!-- Recent Posts Preview (will be populated once blog is implemented) -->
-    <div class="border-t border-gray-200 pt-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Latest from the Blog</h2>
-        <div class="text-center text-gray-500">
-            <p class="mb-4">Blog posts will appear here once the blog is set up.</p>
-            <a href="/blog/" class="text-blue-600 hover:text-blue-700">Visit the blog section →</a>
+        {% if collections.posts.length > 0 %}
+            <div class="grid gap-8 md:grid-cols-2">
+                {% for post in collections.posts | reverse | limit(4) %}
+                    <article class="card-dark spotlight-effect group">
+                        <div class="p-6">
+                            <header class="mb-4">
+                                <h3 class="text-xl font-semibold text-gray-100 mb-2 group-hover:text-blue-400 transition-colors">
+                                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                                </h3>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <time datetime="{{ post.date | htmlDateString }}">
+                                        {{ post.date | readableDate }}
+                                    </time>
+                                    {% if post.data.tags %}
+                                        <span class="mx-2">•</span>
+                                        <div class="flex flex-wrap gap-1">
+                                            {% for tag in post.data.tags %}
+                                                {% if tag != "post" %}
+                                                    <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">
+                                                        {{ tag }}
+                                                    </span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </header>
+                            
+                            {% if post.data.excerpt %}
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                    {{ post.data.excerpt }}
+                                </p>
+                            {% endif %}
+                            
+                            <footer>
+                                <a href="{{ post.url }}" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition-colors text-sm">
+                                    Read more
+                                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </footer>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12 card-dark">
+                <div class="text-4xl mb-4">📝</div>
+                <h3 class="text-xl font-semibold text-gray-300 mb-2">No posts yet</h3>
+                <p class="text-gray-500">Check back soon for new content!</p>
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-16 border-t border-gray-800/50">
+        <div class="flex items-center justify-between mb-12">
+            <h2 class="text-3xl font-bold text-gray-100">Projects</h2>
+            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+                View all projects →
+            </a>
         </div>
-    </div>
-</div> 
+
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Project 1 -->
+            <div class="card-dark spotlight-effect group">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-100 mb-2 group-hover:text-blue-400 transition-colors">
+                        AI Chat Interface
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        A modern chat interface built with React and WebSocket for real-time AI conversations with streaming responses.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">React</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">WebSocket</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">Node.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="card-dark spotlight-effect group">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-100 mb-2 group-hover:text-emerald-400 transition-colors">
+                        Analytics Dashboard
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Real-time analytics dashboard with interactive charts and data visualization for tracking key metrics.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">Vue.js</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">D3.js</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="card-dark spotlight-effect group">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-100 mb-2 group-hover:text-purple-400 transition-colors">
+                        Mobile Fitness App
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Cross-platform mobile app for tracking workouts and nutrition with social features and progress analytics.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">React Native</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">Firebase</span>
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">GraphQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+// Typing animation for the homepage
+document.addEventListener('DOMContentLoaded', function() {
+    const texts = ['AI Architect', 'Builder', 'Entrepreneur'];
+    const typingElement = document.getElementById('typing-text');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
+    function typeText() {
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+            typingSpeed = 50;
+        } else {
+            typingElement.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+            typingSpeed = 100;
+        }
+        
+        if (!isDeleting && charIndex === currentText.length) {
+            // Pause at end of word
+            setTimeout(() => {
+                isDeleting = true;
+            }, 1500);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+        }
+        
+        setTimeout(typeText, typingSpeed);
+    }
+    
+    // Start typing animation
+    typeText();
+});
+</script> 
