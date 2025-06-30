@@ -1,6 +1,6 @@
 ---
 title: "How to Vibe Code like a Software Architect"
-date: "2025-06-30"
+date: 2025-06-30
 layout: "layouts/post.njk"
 tags: 
   - post
