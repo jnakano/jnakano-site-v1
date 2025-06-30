@@ -11,7 +11,6 @@ excerpt: "Vibe coding with LLMs is powerful, but often leads to 'context spaghet
 permalink: "/blog/{{ title | slugify }}/"
 ---
 
-## How to Vibe Code like a Sfotware Architect
 Vibe coding has evolved far beyond what most people realize. We've moved from manually copying and pasting code snippets to having ChatGPT, Replit, Lovable, v0, and Cursor make it possible to build entire applications. My breakthrough moment came a while back when Claude Sonnet 3.5 was released—even while manually copying and pasting code for side projects, I was moving 5x quicker compared to my traditional dev days. I knew the old paradigm of coding 100% manually was gone. 
 
 Now with how advanced Cursor has become, the old ways of manually copy/pasting snippets are completely gone. You can simply accept code changes and move extremely fast.
