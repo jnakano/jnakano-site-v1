@@ -14,53 +14,55 @@ permalink: /blog/index.html
   {% if collections.posts.length > 0 %}
     <div class="space-y-8">
       {% for post in collections.posts %}
-        <article class="border-b border-gray-200 pb-8 last:border-b-0">
-          <header class="mb-4">
-            <h2 class="text-2xl font-semibold mb-2">
-              <a href="{{ post.url }}" class="text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                {{ post.data.title }}
+        <article class="card-dark spotlight-effect group border-b border-gray-800/50 pb-8 last:border-b-0">
+          <div class="p-6 -m-6">
+            <header class="mb-4">
+              <h2 class="text-2xl font-semibold mb-2">
+                <a href="{{ post.url }}" class="text-blue-400 hover:text-blue-300 transition-colors duration-200 group-hover:text-blue-300">
+                  {{ post.data.title }}
+                </a>
+              </h2>
+              <div class="flex items-center text-gray-400 text-sm">
+                <time datetime="{{ post.date | htmlDateString }}">
+                  {{ post.date | readableDate }}
+                </time>
+                {% if post.data.tags %}
+                  <span class="mx-2">•</span>
+                  <div class="flex flex-wrap gap-2">
+                    {% for tag in post.data.tags %}
+                      {% if tag != "post" %}
+                        <span class="inline-block bg-gray-800 text-gray-400 px-2 py-1 rounded-full text-xs">
+                          {{ tag }}
+                        </span>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </header>
+            
+            {% if post.data.excerpt %}
+              <div class="text-gray-400 leading-relaxed mb-4">
+                {{ post.data.excerpt }}
+              </div>
+            {% endif %}
+            
+            <footer>
+              <a href="{{ post.url }}" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200">
+                Read more
+                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
               </a>
-            </h2>
-            <div class="flex items-center text-gray-500 text-sm">
-              <time datetime="{{ post.date | htmlDateString }}">
-                {{ post.date | readableDate }}
-              </time>
-              {% if post.data.tags %}
-                <span class="mx-2">•</span>
-                <div class="flex flex-wrap gap-2">
-                  {% for tag in post.data.tags %}
-                    {% if tag != "post" %}
-                      <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                        {{ tag }}
-                      </span>
-                    {% endif %}
-                  {% endfor %}
-                </div>
-              {% endif %}
-            </div>
-          </header>
-          
-          {% if post.data.excerpt %}
-            <div class="text-gray-700 leading-relaxed">
-              {{ post.data.excerpt }}
-            </div>
-          {% endif %}
-          
-          <footer class="mt-4">
-            <a href="{{ post.url }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
-              Read more
-              <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </footer>
+            </footer>
+          </div>
         </article>
       {% endfor %}
     </div>
   {% else %}
-    <div class="text-center py-12">
-      <div class="text-6xl mb-4">📝</div>
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">No posts yet</h2>
+    <div class="text-center py-12 card-dark">
+      <div class="text-4xl mb-4">📝</div>
+      <h2 class="text-xl font-semibold text-gray-300 mb-2">No posts yet</h2>
       <p class="text-gray-500">Check back soon for new content!</p>
     </div>
   {% endif %}
