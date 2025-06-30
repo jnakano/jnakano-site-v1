@@ -22,12 +22,11 @@ permalink: /blog/index.html
                   {{ post.data.title }}
                 </a>
               </h2>
-              <div class="flex items-center text-gray-400 text-sm">
+              <div class="flex flex-col gap-3 text-gray-400 text-sm">
                 <time datetime="{{ post.date | htmlDateString }}">
                   {{ post.date | readableDate }}
                 </time>
                 {% if post.data.tags %}
-                  <span class="mx-2">•</span>
                   <div class="flex flex-wrap gap-2">
                     {% for tag in post.data.tags %}
                       {% if tag != "post" %}

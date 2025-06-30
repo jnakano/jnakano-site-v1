@@ -32,12 +32,11 @@ title: Home
                                 <h3 class="text-xl font-semibold text-gray-100 mb-2 group-hover:text-blue-400 transition-colors">
                                     <a href="{{ post.url }}">{{ post.data.title }}</a>
                                 </h3>
-                                <div class="flex items-center text-gray-500 text-sm">
+                                <div class="flex flex-col gap-2 text-gray-500 text-sm">
                                     <time datetime="{{ post.date | htmlDateString }}">
                                         {{ post.date | readableDate }}
                                     </time>
                                     {% if post.data.tags %}
-                                        <span class="mx-2">•</span>
                                         <div class="flex flex-wrap gap-1">
                                             {% for tag in post.data.tags %}
                                                 {% if tag != "post" %}
