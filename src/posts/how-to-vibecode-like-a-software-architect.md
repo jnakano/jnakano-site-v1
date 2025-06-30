@@ -6,7 +6,6 @@ tags:
   - post
   - ai
   - development
-  - productivity
   - architecture
 excerpt: "Vibe coding with LLMs is powerful, but often leads to 'context spaghetti' on complex projects. Here’s how to leverage traditional software engineering principles to overcome it."
 permalink: "/blog/{{ title | slugify }}/"
