@@ -58,6 +58,6 @@ The whole thing runs on what I call "vibe-powered infrastructure"—tools that j
 
 If you've got a digital ghost town of your own, maybe it's time for a refresh. The tools available today have made it easier than ever to build something simple and maintainable without the cost or complexity baggage.
 
-*The entire source code for this website is public on GitHub. Feel free to take a look, fork it, and build your own version. Sometimes the best way forward is to start fresh with the right tools.*
+*The entire source code for this website is public on [GitHub](https://github.com/jnakano/jnakano-site-v1). Feel free to take a look, fork it, and build your own version. Sometimes the best way forward is to start fresh with the right tools.*
 
 Obviously, this approach isn't for everyone. If you need complex user management, e-commerce, or dynamic functionality, you'll need something more robust. But for a personal site where you just want to write and share ideas? This stack is perfect.
