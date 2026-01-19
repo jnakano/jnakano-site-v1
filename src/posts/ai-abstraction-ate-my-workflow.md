@@ -209,9 +209,9 @@ Loose specs and flaky tests that you could manually work around? They'll break a
 
 A few months ago, multi-agent orchestration felt niche—most developers were still optimizing their Claude Code setups, exploring Skills and MCP. That's changed fast.
 
-The Ralph Wiggum plugin has entered the chat.
+The [Ralph Wiggum plugin](https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md) has entered the chat.
 
-If you've been on X lately, you've probably seen it everywhere. Ralph is a Claude Code plugin that implements autonomous development loops: essentially a while true wrapper that keeps Claude working until completion criteria are met. Claude tries to exit, a Stop hook blocks the exit, Claude sees the updated repo + git history from the previous iteration, and it loops again until it's actually done.
+If you've been on X lately, you've probably seen it everywhere. Ralph is a Claude Code plugin that implements autonomous development loops: essentially a `while true` wrapper that keeps Claude working until completion criteria are met. Claude tries to exit, a Stop hook blocks the exit, Claude sees the updated repo + git history from the previous iteration, and it loops again until it's actually done.
 
 For power users, that's a real shift in posture. You stop "chatting with a coding assistant" and start managing *autonomous night shifts*. The AI stops being a pair programmer and starts acting like a relentless worker—iterating until the job clears the bar.
 
