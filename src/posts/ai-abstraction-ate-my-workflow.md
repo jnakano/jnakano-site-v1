@@ -25,7 +25,7 @@ Specifically: **I need to sleep.**
 
 For 6–8 hours a day, my AI agents sit idle. Not because the models can't work—but because the parts of the workflow that still matter require *me* to be present: steering Claude Code, feeding context, verifying outputs, starting new sessions, unblocking decisions. Once I log off, the entire pipeline pauses.
 
-That question from the interview never left my head:
+The thought that kept resurfacing:
 
 **What if my workflow could run while I sleep?**
 
