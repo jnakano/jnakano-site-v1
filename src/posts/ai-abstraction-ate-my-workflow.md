@@ -1,6 +1,6 @@
 ---
 title: "AI Abstraction Ate My Workflow"
-date: 2025-01-19
+date: 2026-01-19
 layout: "layouts/post.njk"
 tags: 
   - post
