@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
-    
+    {%- set pageTitle = (title + " | " + site.author) if title else (site.author + " — Developer & Writer") -%}
+    {%- set pageDescription = description or excerpt or site.description %}
+    <title>{{ pageTitle }}</title>
+    <meta name="description" content="{{ pageDescription }}">
+    <meta name="author" content="{{ site.author }}">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="{% if tags and 'post' in tags %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:description" content="{{ pageDescription }}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:site_name" content="{{ site.author }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ pageTitle }}">
+    <meta name="twitter:description" content="{{ pageDescription }}">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      {% if tags and 'post' in tags -%}
+      "@type": "BlogPosting",
+      "headline": {{ title | dump | safe }},
+      "description": {{ pageDescription | dump | safe }},
+      "datePublished": "{{ page.date | htmlDateString }}",
+      "url": "{{ site.url }}{{ page.url }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author }}",
+        "url": "{{ site.url }}/"
+      }
+      {%- else -%}
+      "@type": "Person",
+      "name": "{{ site.author }}",
+      "url": "{{ site.url }}/",
+      "email": "mailto:{{ site.authorEmail }}",
+      "jobTitle": "Software Developer"
+      {%- endif %}
+    }
+    </script>
+
     <!-- Preconnect to optimize font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
